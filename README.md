@@ -24,66 +24,73 @@
 
 > 💡 如果已有飞书机器人（如 [moltbot-feishu](https://github.com/AlexAnys/moltbot-feishu)），可复用同一个应用。
 
-### 2. 安装 mcporter
-
-```bash
-npm install -g mcporter
-```
-
-### 3. 配置 MCP
-
-**方式 A：Moltbot/Clawdbot 用户**
-
-编辑项目目录下的 `config/mcporter.json`：
-
-```json
-{
-  "mcpServers": {
-    "feishu": {
-      "command": "npx",
-      "args": ["-y", "@larksuiteoapi/lark-mcp", "mcp", "-a", "cli_你的AppID", "-s", "你的AppSecret"]
-    }
-  }
-}
-```
-
-**方式 B：Cursor / Claude Desktop 用户**
-
-编辑 MCP 配置文件，添加：
-
-```json
-{
-  "mcpServers": {
-    "feishu": {
-      "command": "npx",
-      "args": ["-y", "@larksuiteoapi/lark-mcp", "mcp", "-a", "cli_你的AppID", "-s", "你的AppSecret"]
-    }
-  }
-}
-```
-
-### 4. 验证
-
-```bash
-mcporter list feishu
-```
-
-看到工具列表 = 配置成功 ✅
-
-## 访问个人文档（用户授权）
-
-默认用「应用身份」，只能操作应用创建的资源。
-
-要读取你的个人文档、知识库，需要「用户授权」：
-
-### Step 1: 配置回调地址
+### 2. 配置回调地址（仅一次）
 
 飞书开放平台 → 应用 → **安全设置** → 重定向 URL，添加：
 ```
 http://localhost:3000/callback
 ```
 
-### Step 2: 登录授权
+### 3. 一键配置
+
+```bash
+# 下载并运行配置脚本
+curl -fsSL https://raw.githubusercontent.com/AlexAnys/feishu-mcp/main/setup.sh | bash
+```
+
+或手动运行：
+```bash
+git clone https://github.com/AlexAnys/feishu-mcp.git
+cd feishu-mcp
+./setup.sh
+```
+
+脚本会自动：
+- ✅ 安装 mcporter（如果没有）
+- ✅ 写入 MCP 配置
+- ✅ 引导完成用户授权
+
+### 4. 验证
+
+```bash
+mcporter call feishu-user.docx_builtin_search --args '{"data":{"search_key":"测试","count":3}}'
+```
+
+---
+
+## 手动配置（可选）
+
+如果你想手动配置，或用于 Cursor / Claude Desktop：
+
+<details>
+<summary>展开手动配置步骤</summary>
+
+### 安装 mcporter
+
+```bash
+npm install -g mcporter
+```
+
+### 编辑配置文件
+
+Moltbot 用户编辑 `config/mcporter.json`，Cursor/Claude 用户编辑各自的 MCP 配置文件：
+
+```json
+{
+  "mcpServers": {
+    "feishu": {
+      "command": "npx",
+      "args": ["-y", "@larksuiteoapi/lark-mcp", "mcp", "-a", "cli_你的AppID", "-s", "你的AppSecret"]
+    },
+    "feishu-user": {
+      "command": "npx",
+      "args": ["-y", "@larksuiteoapi/lark-mcp", "mcp", "-a", "cli_你的AppID", "-s", "你的AppSecret", "--oauth", "--token-mode", "user_access_token"]
+    }
+  }
+}
+```
+
+### 用户授权
 
 ```bash
 npx -y @larksuiteoapi/lark-mcp login -a "cli_你的AppID" -s "你的AppSecret"
@@ -91,23 +98,11 @@ npx -y @larksuiteoapi/lark-mcp login -a "cli_你的AppID" -s "你的AppSecret"
 
 浏览器打开飞书授权页，点同意即可。
 
-### Step 3: 添加用户身份配置
+</details>
 
-```json
-{
-  "mcpServers": {
-    "feishu": {
-      "command": "npx",
-      "args": ["-y", "@larksuiteoapi/lark-mcp", "mcp", "-a", "cli_xxx", "-s", "secret"]
-    },
-    "feishu-user": {
-      "command": "npx",
-      "args": ["-y", "@larksuiteoapi/lark-mcp", "mcp", "-a", "cli_xxx", "-s", "secret", "--oauth", "--token-mode", "user_access_token"]
-    }
-  }
-}
-```
+---
 
+**两种身份说明**：
 - `feishu` — 应用身份：创建表格、发消息
 - `feishu-user` — 用户身份：搜索/读取个人文档
 
