@@ -1,16 +1,16 @@
 ---
-name: feishu-tools
-description: 飞书工具能力 - 让 AI 读写云文档、多维表格、知识库。基于官方 lark-openapi-mcp。
+name: feishu-mcp
+description: 飞书 MCP 配置指南 - 让 AI 读写云文档、多维表格、知识库。适配 Moltbot/Clawdbot、Cursor、Claude Desktop。
 metadata: {"clawdbot":{"emoji":"📘","requires":{"bins":["mcporter"]}}}
 ---
 
-# 飞书工具 (Feishu Tools)
+# 飞书 MCP (Feishu MCP)
 
-通过 MCP 让 Clawdbot 操作飞书资源。
+通过 MCP 让 AI 操作飞书资源：文档、多维表格、知识库、消息。
 
 ## 前置
 
-1. 飞书应用的 App ID + App Secret
+1. 飞书应用 App ID + App Secret（[开放平台](https://open.feishu.cn/app) 创建）
 2. mcporter: `npm i -g mcporter`
 
 ## 配置
@@ -32,10 +32,12 @@ metadata: {"clawdbot":{"emoji":"📘","requires":{"bins":["mcporter"]}}}
 }
 ```
 
-用户授权（访问个人文档需要）:
-```bash
-npx -y @larksuiteoapi/lark-mcp login -a "AppID" -s "AppSecret"
-```
+## 用户授权
+
+访问个人文档需要先授权：
+
+1. 飞书开放平台 → 应用 → 安全设置 → 添加重定向 URL：`http://localhost:3000/callback`
+2. 运行：`npx -y @larksuiteoapi/lark-mcp login -a "AppID" -s "AppSecret"`
 
 ## 常用命令
 
@@ -58,7 +60,9 @@ mcporter call feishu-user.wiki_v1_node_search --args '{"data":{"query":"关键�
 
 ## 两种身份
 
-- `feishu` — 应用身份，操作应用创建的资源
-- `feishu-user` — 用户身份，访问用户个人文档/知识库
+| 服务 | 身份 | 用途 |
+|------|------|------|
+| `feishu` | 应用 | 创建表格、发消息 |
+| `feishu-user` | 用户 | 读取个人文档/知识库 |
 
-详见 README.md
+详见 [README.md](https://github.com/AlexAnys/feishu-mcp)
