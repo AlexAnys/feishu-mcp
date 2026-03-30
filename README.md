@@ -4,6 +4,32 @@
 
 专为 **Moltbot/Clawdbot** 用户设计，也适用于 Cursor、Claude Desktop、Windsurf 等 AI 工具。
 
+## 🆕 新选择：Lark CLI（2026.3.28）
+
+飞书官方开源了 [Lark CLI](https://github.com/larksuite/cli)（MIT），**一行命令调飞书 2500+ API**，内置 19 个 AI Agent Skills。相比 MCP 方案，Lark CLI 安装更简单、覆盖更广：
+
+| | MCP 方案（本项目） | Lark CLI |
+|---|---|---|
+| **安装** | 需配置 mcporter + MCP servers | `npm install -g @larksuite/cli` |
+| **覆盖** | 文档/表格/搜索/日历 | 11 个领域 200+ 命令 |
+| **调用方式** | 通过 MCP 协议 | 直接 CLI 命令 |
+| **Agent 适配** | 需要 MCP 支持 | 任何能执行命令的 Agent |
+
+**建议**：
+- 需要**文档深度编辑**（块级操作、Mermaid 图表插入）→ 继续用本项目的 MCP 方案
+- 需要**广覆盖的飞书操作**（搜文档、读妙记、查日历、发消息等）→ 用 Lark CLI 更简单
+
+两者可以共存。安装 Lark CLI 只需告诉你的 Agent 一句话：
+
+```text
+帮我安装飞书 Lark CLI。
+参考这个指南：https://github.com/AlexAnys/openclaw-feishu/blob/main/docs/lark-cli-guide.md
+```
+
+👉 详见 [Lark CLI 上手指南](https://github.com/AlexAnys/openclaw-feishu/blob/main/docs/lark-cli-guide.md)
+
+---
+
 ## ✨ 能做什么？
 
 ### 📄 文档操作
@@ -254,11 +280,11 @@ npx -y @larksuiteoapi/lark-mcp login -a "cli_xxx" -s "secret"
 
 ## 🔗 相关资源
 
+- [Lark CLI](https://github.com/larksuite/cli) — 飞书官方 CLI，覆盖 2500+ API（推荐搭配使用）
 - [feishu-mcp (社区版)](https://github.com/cso1z/Feishu-MCP) — 文档编辑能力
 - [lark-openapi-mcp (官方)](https://github.com/larksuite/lark-openapi-mcp) — 官方 API
-- [moltbot-feishu](https://github.com/AlexAnys/moltbot-feishu) — 飞书消息通道插件
+- [openclaw-feishu](https://github.com/AlexAnys/openclaw-feishu) — 飞书 × OpenClaw 配置指南
 - [飞书开放平台](https://open.feishu.cn)
-- [Moltbot](https://github.com/moltbot/moltbot)
 
 ## 📜 License
 
