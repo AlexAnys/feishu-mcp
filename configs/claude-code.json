@@ -1,0 +1,18 @@
+{
+  "_comment": "Claude Code MCP 配置 — 飞书全能集成套件 (feishu-mcp v2)",
+  "_comment_usage": "将此文件放置到 ~/.claude/ 目录，或通过 Claude Code 的 MCP 设置导入",
+  "_comment_credentials": "FEISHU_APP_ID 和 FEISHU_APP_SECRET 请在 open.feishu.cn 创建应用后获取",
+  "_comment_auth_type": "user 表示用户身份授权，首次使用时会自动引导 OAuth 登录",
+  "mcpServers": {
+    "feishu": {
+      "_comment": "社区版 feishu-mcp — 文档创建/编辑/图表/图片，17 个精细化文档编辑工具",
+      "command": "npx",
+      "args": ["-y", "feishu-mcp@latest", "--stdio"],
+      "env": {
+        "FEISHU_APP_ID": "",
+        "FEISHU_APP_SECRET": "",
+        "FEISHU_AUTH_TYPE": "user"
+      }
+    }
+  }
+}

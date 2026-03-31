@@ -1,265 +1,248 @@
-# feishu-mcp
+# feishu-mcp — 飞书全能集成套件
 
-飞书全能 MCP — 让 AI 助手完整操作你的飞书：创建文档、编辑内容、插入图表、管理表格。
+**让 AI 助手完整操作你的飞书**
 
-专为 **Moltbot/Clawdbot** 用户设计，也适用于 Cursor、Claude Desktop、Windsurf 等 AI 工具。
-
-## ✨ 能做什么？
-
-### 📄 文档操作
-- **创建文档** — "帮我新建一个项目周报文档"
-- **编辑内容** — "在文档开头加一段摘要"
-- **读取内容** — "总结一下这篇文档的要点"
-- **批量更新** — "把所有标题改成粗体"
-
-### 📊 表格与图表
-- **创建表格** — "插入一个三列的对比表"
-- **Mermaid 图表** — "画一个用户注册流程图"
-- **思维导图** — "把这些要点整理成思维导图"
-
-### 🖼️ 多媒体
-- **插入图片** — "把这张截图加到文档里"
-- **画板内容** — "获取画板里的流程图"
-
-### 📚 知识管理
-- **搜索文档** — "找一下上周的会议记录"
-- **浏览文件夹** — "列出项目文档文件夹的内容"
-- **知识库** — "在 Wiki 里创建一个新页面"
-
-### 📋 多维表格
-- **创建表格** — "新建一个项目跟踪表"
-- **写入数据** — "把这些任务添加到表里"
-- **查询记录** — "查一下本周的待办事项"
-
-## 🚀 快速开始
-
-### 1. 准备飞书应用
-
-去 [飞书开放平台](https://open.feishu.cn/app) 创建自建应用：
-
-1. 创建应用，拿到 **App ID** 和 **App Secret**
-2. 开通权限（见下方权限列表）
-3. 安全设置 → 重定向 URL 添加：`http://localhost:3333/callback`
-4. 发布应用
-
-### 2. 一键配置
-
-```bash
-curl -fsSL https://raw.githubusercontent.com/AlexAnys/feishu-mcp/main/setup.sh | bash
-```
-
-按提示输入 App ID 和 App Secret，脚本会自动完成所有配置。
-
-### 3. 开始使用
-
-在 Moltbot 对话中直接说：
-> "帮我在飞书创建一个新文档，标题是《项目周报》"
+一条命令安装，用自然语言控制飞书的消息、日历、文档、表格、任务、邮件等全部功能。
 
 ---
 
-## 📦 包含的 MCP 服务
+## What can AI do? — 你可以让 AI 做什么
 
-本 Skill 整合了两个 MCP，发挥各自优势：
+安装完成后，你可以在 AI 对话中直接说出以下需求，AI 会自动帮你完成：
 
-| MCP | 用途 | 服务名 |
-|-----|------|--------|
-| [feishu-mcp](https://github.com/cso1z/Feishu-MCP) (社区版) | 文档创建/编辑、图表、图片 | `feishu` |
-| [lark-openapi-mcp](https://github.com/larksuite/lark-openapi-mcp) (官方) | 多维表格、日历、消息、搜索 | `lark` / `lark-user` |
+### 消息与沟通
+- "给张三发条消息，提醒他明天开会"
+- "搜索聊天记录中关于项目上线的讨论"
 
-## 🔑 需要的权限
+### 日历与日程
+- "看看我今天有什么会议"
+- "帮我约一个明天下午 3 点的会议，邀请李四"
+- "查一下王五这周有没有空"
 
-在飞书开放平台开通以下权限：
+### 文档与编辑
+- "帮我新建一个项目周报文档"
+- "在文档末尾追加一段总结"
+- "把这个标题改成红色"
+- "一次性添加 5 个格式化段落"
 
-### 基础权限（必需）
-| 权限 | 说明 |
-|------|------|
-| `docx:document` | 读写文档 |
-| `drive:drive` | 访问云空间 |
-| `wiki:wiki` | 访问知识库 |
+### 表格与数据
+- "创建一个销售数据电子表格"
+- "查询项目跟踪表中本周的记录"
+- "把这些数据写入表格"
 
-### 推荐权限
-| 权限 | 说明 |
-|------|------|
-| `bitable:app` | 多维表格 |
-| `im:message` | 发送消息 |
-| `search:docs:read` | 搜索文档 |
-| `calendar:calendar` | 日历管理 |
+### 任务与待办
+- "创建一个任务：下周五前完成设计评审"
+- "看看我还有哪些未完成的任务"
 
-> 💡 首次调用某功能时如果提示权限不足，按提示链接开通即可。
+### 邮件
+- "给团队发一封项目进度邮件"
+- "查看最近的收件箱"
+- "搜索关于合同的邮件"
 
-## 🛠️ 可用工具一览
+### 知识库与搜索
+- "列出所有知识空间"
+- "搜索关于 Q1 的文档"
+- "在技术文档知识库里创建一个新页面"
 
-### 文档管理（feishu-mcp）
+### 会议与妙记
+- "看看昨天有哪些会议记录"
+- "获取这个妙记的 AI 总结"
 
-| 工具 | 功能 |
-|------|------|
-| `create_feishu_document` | 创建新文档 |
-| `get_feishu_document_info` | 获取文档信息 |
-| `get_feishu_document_blocks` | 获取文档结构 |
-| `batch_create_feishu_blocks` | 批量创建内容块 |
-| `update_feishu_block_text` | 更新文本内容 |
-| `delete_feishu_document_blocks` | 删除内容块 |
-| `create_feishu_table` | 创建表格 |
-| `upload_and_bind_image_to_block` | 上传图片 |
-| `get_feishu_folder_files` | 获取文件夹内容 |
-| `create_feishu_folder` | 创建文件夹 |
-| `search_feishu_documents` | 搜索文档 |
-| `get_feishu_whiteboard_content` | 获取画板内容 |
+### 画板与图表
+- "创建一个新画板"
+- "在画板上画一个用户注册流程图"
 
-### 多维表格（lark-mcp）
+### 通讯录
+- "搜索张三的联系方式"
+- "查一下产品部有哪些人"
 
-| 工具 | 功能 |
-|------|------|
-| `bitable_v1_app_create` | 创建多维表格 |
-| `bitable_v1_appTable_list` | 列出数据表 |
-| `bitable_v1_appTableRecord_create` | 创建记录 |
-| `bitable_v1_appTableRecord_search` | 搜索记录 |
-| `bitable_v1_appTableRecord_update` | 更新记录 |
+### 云空间文件管理
+- "上传这个 PDF 到飞书云空间"
+- "创建一个新文件夹叫项目资料"
 
-### 搜索与知识库（lark-mcp）
+---
 
-| 工具 | 功能 |
-|------|------|
-| `docx_builtin_search` | 搜索云文档 |
-| `docx_v1_document_rawContent` | 获取文档纯文本 |
-| `wiki_v1_node_search` | 搜索知识库 |
-| `wiki_v2_space_getNode` | 获取 Wiki 节点 |
+## Quick Start — 一键安装
 
-## 📝 使用示例
+### 第一步：准备飞书应用
 
-### 创建并编辑文档
+你需要先在飞书开放平台创建一个自建应用，获取 App ID 和 App Secret。
 
-```
-用户：帮我创建一个文档，标题是"Q1 工作总结"
+> 如果你从未使用过飞书开放平台，请查看 **[GUIDE.md — 从零开始配置飞书 AI 助手](./GUIDE.md)**，里面有详细的每一步操作说明。
 
-AI：我来创建文档...
-    [调用 create_feishu_document]
-    文档已创建：https://xxx.feishu.cn/docx/xxx
-    
-用户：在里面加上三个章节：目标回顾、主要成果、下季度计划
+简要步骤：
+1. 打开 [飞书开放平台](https://open.feishu.cn/app)，登录后点击「创建自建应用」
+2. 记下应用的 **App ID** 和 **App Secret**
+3. 在应用的「安全设置」中添加两个重定向 URL：
+   - `http://localhost:3000/callback`
+   - `http://localhost:3333/callback`
+4. 在「权限管理」中开通所需权限（见下方[权限列表](#permissions--需要的权限)）
+5. 发布应用（创建版本并发布）
 
-AI：正在添加章节...
-    [调用 batch_create_feishu_blocks]
-    已添加三个章节标题，请查看文档。
-```
-
-### 插入流程图
-
-```
-用户：在文档里画一个用户注册流程图
-
-AI：我来创建 Mermaid 流程图...
-    [调用 batch_create_feishu_blocks with mermaid]
-    
-    已插入流程图：
-    用户访问 → 填写信息 → 验证手机 → 注册成功
-```
-
-### 搜索并总结
-
-```
-用户：找一下上周的产品会议记录，总结出行动项
-
-AI：搜索中...
-    [调用 docx_builtin_search]
-    找到 3 篇相关文档，正在读取...
-    [调用 docx_v1_document_rawContent]
-    
-    行动项汇总：
-    1. @张三 完成原型设计 - 本周五
-    2. @李四 准备用户访谈 - 下周一
-    ...
-```
-
-### 写入多维表格
-
-```
-用户：把这些任务添加到项目跟踪表
-
-AI：正在写入...
-    [调用 bitable_v1_appTableRecord_create]
-    已添加 5 条记录到多维表格。
-```
-
-## 🔧 手动配置（可选）
-
-<details>
-<summary>点击展开手动配置步骤</summary>
-
-### 安装依赖
+### 第二步：运行安装脚本
 
 ```bash
-npm install -g mcporter
+curl -fsSL https://raw.githubusercontent.com/AlexAnys/feishu-mcp/main/setup-v2.sh | bash
 ```
 
-### 配置文件
+脚本会引导你：
+- 输入 App ID 和 App Secret
+- 自动安装飞书 CLI 和社区 MCP
+- 打开浏览器完成 OAuth 授权
+- 检测你使用的 AI 工具并生成对应配置
 
-编辑 `config/mcporter.json`：
+整个过程大约 2-3 分钟。
 
-```json
-{
-  "mcpServers": {
-    "feishu": {
-      "command": "npx",
-      "args": ["-y", "feishu-mcp@latest", "--stdio"],
-      "env": {
-        "FEISHU_APP_ID": "cli_你的AppID",
-        "FEISHU_APP_SECRET": "你的AppSecret",
-        "FEISHU_AUTH_TYPE": "user"
-      }
-    },
-    "lark": {
-      "command": "npx",
-      "args": ["-y", "@larksuiteoapi/lark-mcp", "mcp", "-a", "cli_你的AppID", "-s", "你的AppSecret"]
-    },
-    "lark-user": {
-      "command": "npx",
-      "args": ["-y", "@larksuiteoapi/lark-mcp", "mcp", "-a", "cli_你的AppID", "-s", "你的AppSecret", "--oauth", "--token-mode", "user_access_token"]
-    }
-  }
-}
+### 第三步：开始对话
+
+在你的 AI 工具中直接说：
+
+> "帮我看一下今天的飞书日程"
+
+如果 AI 成功返回了你的日程安排，说明安装已完成。
+
+---
+
+## Supported AI Tools — 支持的 AI 工具
+
+| AI 工具 | 支持程度 | 说明 |
+|---------|---------|------|
+| **OpenClaw** | 推荐 | 主要适配平台，安装脚本自动检测并配置 |
+| **Claude Code** | 完全支持 | 自动生成 MCP 配置文件 |
+| **Cursor** | 完全支持 | 自动生成 MCP 配置文件 |
+
+安装脚本会自动检测你系统上安装了哪些 AI 工具，并生成对应的配置文件到 `configs/` 目录。
+
+---
+
+## Architecture — 工作原理
+
+如果你好奇这个套件是怎么让 AI 操作飞书的，这里做一个简单说明。
+
+feishu-mcp 整合了两个工具层，它们各有所长、互相配合：
+
+```
+你 <-> AI 助手 (OpenClaw / Claude Code / Cursor)
+                    |
+              feishu-mcp 集成层
+                    |
+          +---------+---------+
+          |                   |
+     飞书 CLI              社区 MCP
+   (官方命令行工具)      (文档精编工具)
+   覆盖 11 个业务域      15 个文档编辑工具
+   消息/日历/邮件/       精确到每个内容块
+   任务/表格/知识库...   颜色/对齐/批量操作
 ```
 
-### 用户授权
+**简单理解**：
+- **飞书 CLI** 负责「广度」— 消息、日历、邮件、任务、表格、知识库等所有非文档领域都靠它
+- **社区 MCP** 负责「深度」— 需要精确编辑文档内容（比如给标题改颜色、一次创建多个格式化段落）时用它
+- AI 助手根据你的需求自动选择用哪个工具，你不需要关心这些细节
 
-```bash
-# 社区版授权
-npx feishu-mcp@latest --feishu-app-id="cli_xxx" --feishu-app-secret="secret" --feishu-auth-type="user"
+> 想了解更多技术细节？请查看 [SKILL.md](./SKILL.md)（AI 决策矩阵）和 [AGENTS.md](./AGENTS.md)（AI 操作手册）。
 
-# 官方版授权
-npx -y @larksuiteoapi/lark-mcp login -a "cli_xxx" -s "secret"
-```
+---
 
-</details>
+## Permissions — 需要的权限
 
-## ❓ 常见问题
+在飞书开放平台的「权限管理」页面中开通以下权限。
 
-### Q: tenant 和 user 认证有什么区别？
+### 基础权限（必须开通）
+
+| 权限标识 | 说明 | 用于 |
+|---------|------|------|
+| `docx:document` | 读写云文档 | 创建和编辑文档 |
+| `drive:drive` | 访问云空间 | 管理文件和文件夹 |
+| `wiki:wiki` | 访问知识库 | 浏览和管理知识空间 |
+
+### 推荐权限（按需开通）
+
+| 权限标识 | 说明 | 用于 |
+|---------|------|------|
+| `im:message` | 发送和接收消息 | 消息和聊天功能 |
+| `calendar:calendar` | 日历管理 | 查看日程、创建会议 |
+| `bitable:app` | 多维表格 | 查询和管理多维表格数据 |
+| `search:docs:read` | 搜索文档 | 搜索云空间内容 |
+| `task:task` | 任务管理 | 创建和查看待办任务 |
+| `mail:message` | 邮件读写 | 收发邮件 |
+| `contact:user.base:readonly` | 通讯录基础信息 | 搜索员工和查看联系方式 |
+| `vc:meeting` | 视频会议 | 查询会议记录 |
+| `minutes:minute` | 妙记 | 获取会议纪要和 AI 总结 |
+| `sheets:spreadsheet` | 电子表格 | 创建和编辑表格 |
+
+> 不需要一次全部开通。首次使用某个功能时如果提示权限不足，再去开通即可。
+
+---
+
+## FAQ — 常见问题
+
+### 安装相关
+
+**Q: 安装脚本需要什么环境？**
+
+需要 Node.js 16 或更高版本和 npm。macOS 和 Linux 系统都支持。不需要管理员权限（sudo）。
+
+**Q: 安装失败怎么办？**
+
+脚本在每一步都会显示中文错误提示和修复建议。如果遇到问题，可以重新运行脚本（它是安全的，可以反复执行），或查看 [GUIDE.md](./GUIDE.md) 中的常见问题部分。
+
+**Q: 可以重新运行安装脚本吗？**
+
+可以。脚本设计为可重复运行（幂等），不会重复安装已有的组件，也不会覆盖你已有的配置。
+
+### 认证相关
+
+**Q: tenant 和 user 认证有什么区别？**
 
 | 认证类型 | 身份 | 适用场景 |
 |----------|------|----------|
-| `tenant` | 应用 | 操作应用创建的资源 |
-| `user` | 用户本人 | 访问个人文档（推荐）|
+| `tenant`（应用身份） | 以应用名义操作 | 操作应用自己创建的资源 |
+| `user`（用户身份） | 以你本人名义操作 | 访问你自己的文档、日程等 |
 
-**强烈建议使用 user 认证**，功能更完整。
+**强烈建议使用 user 认证**，这样 AI 操作的飞书内容会显示为你本人的操作，功能也更完整。安装脚本默认使用 user 认证。
 
-### Q: 权限不足怎么办？
+**Q: 授权过期了怎么办？**
 
-按错误提示的链接开通权限，或在开放平台手动添加。
+AI 工具通常会自动刷新授权。如果确实过期了，你可以说「重新登录飞书」，AI 会帮你重新完成授权。
 
-### Q: 文档链接怎么获取 token？
+### 使用相关
 
-飞书文档链接格式：`https://xxx.feishu.cn/docx/AbCdEfGhIjKl`  
-最后一段 `AbCdEfGhIjKl` 就是 document_token。
+**Q: 文档链接里的 token 怎么获取？**
 
-## 🔗 相关资源
+飞书文档链接格式：`https://xxx.feishu.cn/docx/AbCdEfGhIjKl`
+最后一段 `AbCdEfGhIjKl` 就是 document_token。你也可以直接把链接发给 AI，它会自动提取。
 
-- [feishu-mcp (社区版)](https://github.com/cso1z/Feishu-MCP) — 文档编辑能力
-- [lark-openapi-mcp (官方)](https://github.com/larksuite/lark-openapi-mcp) — 官方 API
-- [moltbot-feishu](https://github.com/AlexAnys/moltbot-feishu) — 飞书消息通道插件
-- [飞书开放平台](https://open.feishu.cn)
-- [Moltbot](https://github.com/moltbot/moltbot)
+**Q: 支持哪些飞书功能？**
 
-## 📜 License
+目前覆盖 11 个业务域：消息、日历、文档、云空间、电子表格、多维表格、任务、邮件、通讯录、知识库、会议/妙记，以及画板和事件订阅。完整的功能列表见 [SKILL.md](./SKILL.md)。
+
+**Q: AI 是怎么决定用哪个工具的？**
+
+feishu-mcp 自带一个「决策矩阵」（[SKILL.md](./SKILL.md)），AI 会根据你的需求自动路由到合适的工具。你只需要用自然语言描述需求，不需要关心底层实现。
+
+---
+
+## Related Docs — 其他文档
+
+| 文档 | 说明 | 适合谁看 |
+|------|------|---------|
+| [GUIDE.md](./GUIDE.md) | 从零开始的安装配置图文指南 | 第一次使用飞书开放平台的用户 |
+| [SKILL.md](./SKILL.md) | AI 决策矩阵 — 每个操作对应哪个工具 | 好奇 AI 怎么选择工具的用户 |
+| [AGENTS.md](./AGENTS.md) | AI 操作完整手册 | AI 开发者 / 高级用户 |
+| [QUICKSTART-AGENT.md](./QUICKSTART-AGENT.md) | AI 自动安装指南 | AI 代理自动化使用 |
+| [TROUBLESHOOT-AGENT.md](./TROUBLESHOOT-AGENT.md) | 错误诊断与恢复 | 遇到问题时参考 |
+
+---
+
+## Contributing — 参与贡献
+
+欢迎提交 Issue 和 Pull Request。
+
+- **报告问题**：在 [Issues](https://github.com/AlexAnys/feishu-mcp/issues) 中描述你遇到的问题
+- **功能建议**：同样在 Issues 中提出
+- **代码贡献**：Fork 后提交 PR，请遵循项目现有的代码风格
+
+## License
 
 MIT
